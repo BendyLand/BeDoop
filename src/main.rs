@@ -1,6 +1,11 @@
-use std::env;
+use std::{env, fs};
 
 mod utils;
+mod encoding;
+mod casing;
+mod conversion;
+mod format;
+mod text_utils;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -20,71 +25,28 @@ fn main() {
         text = args[idx].clone();
     }
     else { text = utils::get_file_contents(&args); }
-    dbg!(text);
+    let command_family = utils::get_command_family(&args);
+    match command_family {
+        utils::CommandFamily::Casing => {
+            let case_op = casing::select_case_option(&args);
+            let result = casing::handle_case_operation(&text, case_op);
+            let path = utils::find_file_path(&args);
+            handle_result(&result, path);
+        }
+        _ => println!("Operation not implemented yet.")
+    }
 }
 
-/*
-rot13
-base64 encode
-base64 decode
-start case
-snake case
-kebab case
-upper case
-down case
-sponge case
-camel case
-add slashes
-remove slashes
-markdown quote (add > to line starts)
-defang (dangerous URLs and other IOCs)
-refang (remove defanging)
-replace smart quotes (with their simpler values)
-shuffle lines (randomize line order)
-ascii to hex (convert ascii chars to hex codes)
-hex to ascii (convert hex values to ascii chars)
-fish PATH hex converter (espcapes terminal characters)
-yaml to json
-json to yaml
-date to timestamp (convert date to unix timestamp)
-date to utc (convert dates and timestamps to UTC dates)
-sum all (sums a list of numbers)
-format json
-md5 checksum (computes the checksum of the text (hex encoded))
-android strings to ios localizables
-ios localizables to android strings
-binary to decimal
-decimal to binary
-deburr (convert text to basic latin characters)
-count characters
-json to query string (convert json to URL query string)
-query string to json (convert URL query string to json)
-collapse lines
-remove duplicate lines
-sort lines
-decimal to hex
-sha1 hash
-sha256 hash
-sha512 hash
-trim
-natural sort lines (smart handling of numbers)
-php unserialize (convert php serialized data to json)
-hex to decimal
-eval javascript
-reverse string
-format sql
-lorem ipsum
-format css
-format xml
-minify css
-html encode all characters
-minify json
-minify xml
-minify sql
-hex to rgb
-url entity encode
-url entities decode
-json to csv
-csv to json
-*/
+fn handle_result(result: &String, path: Option<String>) {
+    match path {
+        None => println!("{}", result),
+        _ => { 
+            let res = fs::write(path.unwrap(), result);  
+            match res {
+                Ok(_) => println!("File updated!"),
+                Err(e) => eprintln!("Unable to write file: {}", e),
+            }
+        }
+    }
+}
 

@@ -1,5 +1,10 @@
 use std::fs;
 
+pub enum CommandFamily {
+    Casing,
+    Unknown,
+}
+
 pub fn find_file_path(args: &Vec<String>) -> Option<String> {
     let flags = get_flags(args);
     if flags_contains(&flags, 'f') {
@@ -50,11 +55,20 @@ pub fn get_flags(args: &Vec<String>) -> Vec<(usize, char)> {
 }
 
 pub fn get_flag_idx(flags: &Vec<(usize, char)>, target: char) -> usize {
-    return flags.into_iter().filter(|x| x.1 == target).collect::<Vec<&(usize, char)>>()[0].0 + 1;
-    
+    return flags.iter().find(|(_, c)| *c == target).map(|(i, _)| i + 1).expect("Flag not found");
 }
 
 pub fn flags_contains(flags: &Vec<(usize, char)>, target: char) -> bool {
     return flags.iter().map(|x| x.1).collect::<Vec<char>>().contains(&target); 
+}
+
+pub fn get_command_family(args: &Vec<String>) -> CommandFamily {
+    let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
+    for arg in args {
+        if casing_options.contains(&arg.to_lowercase()) {
+            return CommandFamily::Casing;
+        }
+    }
+    return CommandFamily::Unknown;
 }
 
