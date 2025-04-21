@@ -5,6 +5,16 @@ This project was inspired by the MacOs app 'Boop', which is a GUI text utility t
 While Boop can handle most needs by most users, this version is aimed at power users, 
 who either prefer working from the command line, or have too much data for Boop to comfortably handle.
 
+## DONE
+ - CASING:
+     - title case (Example)
+     - upper case (EXAMPLE)
+     - lower case (example)
+     - sponge case (eXAmPle)
+     - snake case (this_is_an_example)
+     - camel case (ThisIsAnExample)
+     - kebab case (this-is-an-example)
+
 ## TODO
  - CONVERSIONS:
      - ascii to hex (convert ascii chars to hex codes)
