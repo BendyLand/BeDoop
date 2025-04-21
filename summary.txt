@@ -1,228 +1,62 @@
-// casing.rs
-extern crate case;
-use rand::prelude::*;
+CONVERSIONS:
+    ascii to hex (convert ascii chars to hex codes)
+    hex to ascii (convert hex values to ascii chars)
+    yaml to json
+    json to yaml
+    date to timestamp (convert date to unix timestamp)
+    date to utc (convert dates and timestamps to UTC dates)
+    android strings to ios localizables
+    ios localizables to android strings
+    binary to decimal
+    decimal to binary
+    json to query string (convert json to URL query string)
+    query string to json (convert URL query string to json)
+    decimal to hex
+    hex to decimal
+    json to csv
+    csv to json
+    hex to rgb
+    fish PATH hex converter (espcapes terminal characters)
+    php unserialize (convert php serialized data to json) 
 
-use case::CaseExt;
+ENCODING:
+    rot13
+    base64 encode
+    base64 decode
+    md5 checksum (computes the checksum of the text (hex encoded))
+    html encode all characters
+    url entity encode
+    url entities decode
+    sha1 hash
+    sha256 hash
+    sha512 hash 
 
-pub enum CaseOp {
-    Title, Lower, Upper, Sponge, Snake, Camel, Kebab, Unknown
-}
+FORMAT:
+    add slashes
+    remove slashes
+    format json
+    format sql
+    format css
+    format xml
+    minify css
+    minify json
+    minify xml
+    minify sql 
 
-fn title_case(text: &String) -> String {
-    let mut result = Vec::<String>::new();
-    let lines: Vec<String>  = text.lines().map(|x| x.to_string()).collect();
-    for line in lines {
-        let mut temp_result = Vec::<String>::new();
-        let words: Vec<String> = line.split_whitespace().map(|x| x.to_string()).collect();
-        for word in words {
-            let lower_word = word.to_lowercase();
-            let first_char = lower_word[..1].to_uppercase();
-            let temp = first_char + &lower_word[1..];
-            temp_result.push(temp);
-        }
-        result.push(temp_result.join(" "));
-    }
-    return result.join("\n");
-}
-
-fn lower_case(text: &String) -> String {
-    return text.to_lowercase();
-}
-
-fn upper_case(text: &String) -> String {
-    return text.to_uppercase();
-}
-
-fn sponge_case(text: &String) -> String {
-    let mut result = Vec::<String>::new();
-    let lines: Vec<String>  = text.lines().map(|x| x.to_string()).collect();
-    for line in lines {
-        let mut temp_result = Vec::<String>::new();
-        let words: Vec<String> = line.split_whitespace().map(|x| x.to_string()).collect();
-        let mut rng = rand::rng();
-        for word in words {
-            let temp = word.chars().map(|c| if rng.random_range(0..2) == 1 { c } else { c.to_uppercase().to_string().chars().nth(0).unwrap() }).collect::<String>();
-            temp_result.push(temp);
-        }
-        result.push(temp_result.join(" "));
-    }
-    return result.join("\n");
-}
-
-fn camel_case(text: &String) -> String {
-    return text.to_camel();
-}
-
-fn snake_case(text: &String) -> String {
-    return text.to_snake();
-}
-
-fn kebab_case(text: &String) -> String {
-    let temp = text.to_snake();
-    return temp.to_dashed();
-}
-
-fn str_to_case_op(arg: &str) -> CaseOp {
-    return match arg {
-        "title" => CaseOp::Title,
-        "upper" => CaseOp::Upper,
-        "lower" => CaseOp::Lower,
-        "sponge" => CaseOp::Sponge,
-        "snake" => CaseOp::Snake,
-        "camel" => CaseOp::Camel,
-        "kebab" => CaseOp::Kebab,
-        _ => CaseOp::Unknown
-    }
-}
-
-pub fn select_case_option(args: &Vec<String>) -> CaseOp {
-    let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
-    for arg in args {
-        if casing_options.contains(&arg.to_lowercase()) {
-            return str_to_case_op(arg);
-        }
-    }
-    return CaseOp::Unknown;
-}
-
-pub fn handle_case_operation(text: &String, op: CaseOp) -> String {
-    return match op {
-        CaseOp::Title => title_case(text),
-        CaseOp::Lower => lower_case(text),
-        CaseOp::Upper => upper_case(text),
-        CaseOp::Sponge => sponge_case(text),
-        CaseOp::Snake => snake_case(text),
-        CaseOp::Camel => camel_case(text),
-        CaseOp::Kebab => kebab_case(text),
-        CaseOp::Unknown => panic!("Unknown case operation specified."),
-    };
-}
-
-// main.rs
-use std::{env, fs};
-
-mod utils;
-mod encoding;
-mod casing;
-mod conversion;
-mod format;
-mod text_utils;
-
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        println!("Usage: bdp [flags] <filename>");
-        return;
-    }
-    let flags = utils::get_flags(&args);
-    let text: String;
-    if utils::flags_contains(&flags, 'i') {
-        // TODO
-        // start_interactive_session()
-        return;
-    }
-    if utils::flags_contains(&flags, 's') {
-        let idx = utils::get_flag_idx(&flags, 's');
-        text = args[idx].clone();
-    }
-    else { text = utils::get_file_contents(&args); }
-    let command_family = utils::get_command_family(&args);
-    match command_family {
-        utils::CommandFamily::Casing => {
-            let case_op = casing::select_case_option(&args);
-            let result = casing::handle_case_operation(&text, case_op);
-            let path = utils::find_file_path(&args);
-            handle_result(&result, path);
-        }
-        _ => println!("Operation not implemented yet.")
-    }
-}
-
-fn handle_result(result: &String, path: Option<String>) {
-    match path {
-        None => println!("{}", result),
-        _ => { 
-            let res = fs::write(path.unwrap(), result);  
-            match res {
-                Ok(_) => println!("File updated!"),
-                Err(e) => eprintln!("Unable to write file: {}", e),
-            }
-        }
-    }
-}
-
-// utils.rs
-use std::fs;
-
-pub enum CommandFamily {
-    Casing,
-    Unknown,
-}
-
-pub fn find_file_path(args: &Vec<String>) -> Option<String> {
-    let flags = get_flags(args);
-    if flags_contains(&flags, 'f') {
-        let idx = get_flag_idx(&flags, 'f');
-        return Some(args[idx].clone());
-    }
-    for arg in args {
-        if arg.contains(".") {
-            return Some(arg.clone());
-        }
-    }
-    return None;
-}
-
-pub fn get_file_contents(args: &Vec<String>) -> String {
-    let maybe_path = find_file_path(args);
-    if let Some(path) = maybe_path {
-        let contents = fs::read_to_string(path);
-        return match contents {
-            Ok(text) => text,
-            Err(_) => panic!("Invalid file path."),
-        };
-    }
-    panic!("Unable to find file path.\nIf using a file with no extension, please use the -f flag.");
-}
-
-pub fn get_flags(args: &Vec<String>) -> Vec<(usize, char)> {
-    let mut result = Vec::new();
-    let valid_flags = vec!['s', 'f', 'i'];
-    for (i, arg) in args.iter().enumerate() {
-        if arg.starts_with("-") {
-            let flags: Vec<char> = {
-                arg
-                    .chars()
-                    .skip(1) // skip dash
-                    .filter(|c| valid_flags.contains(c))
-                    .collect()
-            };
-            result.extend_from_slice(
-                &flags
-                    .into_iter()
-                    .map(|c| (i, c))
-                    .collect::<Vec<(usize, char)>>()
-            );
-        }
-    }
-    return result;
-}
-
-pub fn get_flag_idx(flags: &Vec<(usize, char)>, target: char) -> usize {
-    return flags.into_iter().filter(|x| x.1 == target).collect::<Vec<&(usize, char)>>()[0].0 + 1;
-    
-}
-
-pub fn flags_contains(flags: &Vec<(usize, char)>, target: char) -> bool {
-    return flags.iter().map(|x| x.1).collect::<Vec<char>>().contains(&target); 
-}
-
-pub fn get_command_family(args: &Vec<String>) -> CommandFamily {
-    let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
-    for arg in args {
-        if casing_options.contains(&arg.to_lowercase()) {
-            return CommandFamily::Casing;
-        }
-    }
-    return CommandFamily::Unknown;
-}
+TEXT-UTILS:
+    defang (dangerous URLs and other IOCs)
+    refang (remove defanging)
+    deburr (convert text to basic latin characters)
+    shuffle lines (randomize line order)
+    sum all (sums a list of numbers)
+    count characters
+    collapse lines
+    remove duplicate lines
+    sort lines
+    trim
+    natural sort lines (smart handling of numbers)
+    reverse string
+    lorem ipsum
+    markdown quote (add > to line starts)
+    replace smart quotes (with their simpler values)
+    eval javascript 
