@@ -56,8 +56,6 @@ who either prefer working from the command line, or have too much data for Boop 
      - lorem ipsum
      - markdown quote (add > to line starts)
      - replace smart quotes (with their simpler values)
-
-## TODO
  - CONVERSIONS:
      - ascii to hex (convert ascii chars to hex codes)
      - hex to ascii (convert hex values to ascii chars)
@@ -65,8 +63,6 @@ who either prefer working from the command line, or have too much data for Boop 
      - json to yaml
      - date to timestamp (convert date to unix timestamp)
      - date to utc (convert dates and timestamps to UTC dates)
-     - android strings to ios localizables
-     - ios localizables to android strings
      - binary to decimal
      - decimal to binary
      - json to query string (convert json to URL query string)
@@ -77,5 +73,4 @@ who either prefer working from the command line, or have too much data for Boop 
      - csv to json
      - hex to rgb
      - fish PATH hex converter (espcapes terminal characters)
-     - php unserialize (convert php serialized data to json) 
 
