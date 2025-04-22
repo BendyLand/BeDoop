@@ -92,12 +92,22 @@ pub fn print_commands() {
     println!("Available options:");
     let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
     let encoding_options: Vec<String> = vec!["rot13", "base64_encode", "base64_decode", "md5", "html_encode", "html_decode", "html_encode_all", "url_encode", "url_decode", "url_entity_encode", "url_entities_decode", "sha1", "sha256", "sha512"].into_iter().map(|x| x.to_string()).collect();
+    let format_options: Vec<String> = vec!["add_slashes", "remove_slashes", "format_json", "format_sql", "format_css", "format_xml", "minify_json", "minify_sql", "minify_css", "minify_xml"].into_iter().map(|x| x.to_string()).collect();
+    let text_util_options: Vec<String> = vec!["defang", "refang", "deburr", "shuffle", "sum", "count", "collapse", "dedup", "sort", "trim", "natural_sort", "reverse", "lorem_ipsum", "md_quote", "replace_smart_quotes"].into_iter().map(|x| x.to_string()).collect();
     println!("CASING:");
     for option in casing_options {
         println!(" - {}", option);
     }
     println!("ENCODING:");
     for option in encoding_options {
+        println!(" - {}", option);
+    }
+    println!("FORMAT:");
+    for option in format_options {
+        println!(" - {}", option);
+    }
+    println!("TEXT UTILS:");
+    for option in text_util_options {
         println!(" - {}", option);
     }
 }
