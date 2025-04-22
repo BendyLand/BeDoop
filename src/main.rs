@@ -20,6 +20,10 @@ fn main() {
         // start_interactive_session()
         return;
     }
+    else if utils::flags_contains(&flags, 'h') {
+        utils::print_commands();
+        return;
+    }
     if utils::flags_contains(&flags, 's') {
         let idx = utils::get_flag_idx(&flags, 's');
         text = args[idx].clone();
@@ -32,7 +36,13 @@ fn main() {
             let result = casing::handle_case_operation(&text, case_op);
             let path = utils::find_file_path(&args);
             handle_result(&result, path);
-        }
+        },
+        utils::CommandFamily::Encoding => {
+            let encoding_op = encoding::select_encoding_option(&args);
+            let result = encoding::handle_encoding_operation(&text, encoding_op);
+            let path = utils::find_file_path(&args);
+            handle_result(&result, path);
+        },
         _ => println!("Operation not implemented yet.")
     }
 }

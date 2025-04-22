@@ -14,6 +14,21 @@ who either prefer working from the command line, or have too much data for Boop 
      - snake case (this_is_an_example)
      - camel case (ThisIsAnExample)
      - kebab case (this-is-an-example)
+ - ENCODING:
+     - rot13
+     - base64 encode
+     - base64 decode
+     - md5 checksum (computes the checksum of the text (hex encoded))
+     - html encode
+     - html decode
+     - html encode all characters
+     - url encode
+     - url decode
+     - url entity encode (encode all characters)
+     - url entities decode (decode all characters)
+     - sha1 hash
+     - sha256 hash
+     - sha512 hash 
 
 ## TODO
  - CONVERSIONS:
@@ -36,17 +51,6 @@ who either prefer working from the command line, or have too much data for Boop 
      - hex to rgb
      - fish PATH hex converter (espcapes terminal characters)
      - php unserialize (convert php serialized data to json) 
- - ENCODING:
-     - rot13
-     - base64 encode
-     - base64 decode
-     - md5 checksum (computes the checksum of the text (hex encoded))
-     - html encode all characters
-     - url entity encode
-     - url entities decode
-     - sha1 hash
-     - sha256 hash
-     - sha512 hash 
  - FORMAT:
      - add slashes
      - remove slashes

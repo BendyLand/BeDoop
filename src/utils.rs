@@ -2,6 +2,7 @@ use std::fs;
 
 pub enum CommandFamily {
     Casing,
+    Encoding,
     Unknown,
 }
 
@@ -28,12 +29,13 @@ pub fn get_file_contents(args: &Vec<String>) -> String {
             Err(_) => panic!("Invalid file path."),
         };
     }
-    panic!("Unable to find file path.\nIf using a file with no extension, please use the -f flag.");
+    eprintln!("Unable to find file path.\nIf using a file with no extension, please use the -f flag.\nIf using a string, please use the -s flag.");
+    std::process::exit(1);
 }
 
 pub fn get_flags(args: &Vec<String>) -> Vec<(usize, char)> {
     let mut result = Vec::new();
-    let valid_flags = vec!['s', 'f', 'i'];
+    let valid_flags = vec!['s', 'f', 'i', 'h'];
     for (i, arg) in args.iter().enumerate() {
         if arg.starts_with("-") {
             let flags: Vec<char> = {
@@ -64,11 +66,28 @@ pub fn flags_contains(flags: &Vec<(usize, char)>, target: char) -> bool {
 
 pub fn get_command_family(args: &Vec<String>) -> CommandFamily {
     let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
+    let encoding_options: Vec<String> = vec!["rot13", "base64_encode", "base64_decode", "md5", "html_encode", "html_decode", "html_encode_all", "url_encode", "url_decode", "url_entity_encode", "url_entities_decode", "sha1", "sha256", "sha512"].into_iter().map(|x| x.to_string()).collect();
     for arg in args {
         if casing_options.contains(&arg.to_lowercase()) {
             return CommandFamily::Casing;
+        }
+        else if encoding_options.contains(&arg.to_lowercase()) {
+            return CommandFamily::Encoding;
         }
     }
     return CommandFamily::Unknown;
 }
 
+pub fn print_commands() {
+    println!("Available options:");
+    let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
+    let encoding_options: Vec<String> = vec!["rot13", "base64_encode", "base64_decode", "md5", "html_encode", "html_decode", "html_encode_all", "url_encode", "url_decode", "url_entity_encode", "url_entities_decode", "sha1", "sha256", "sha512"].into_iter().map(|x| x.to_string()).collect();
+    println!("CASING:");
+    for option in casing_options {
+        println!(" - {}", option);
+    }
+    println!("ENCODING:");
+    for option in encoding_options {
+        println!(" - {}", option);
+    }
+}
