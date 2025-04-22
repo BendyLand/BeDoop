@@ -40,6 +40,22 @@ who either prefer working from the command line, or have too much data for Boop 
      - minify json
      - minify xml
      - minify sql 
+ - TEXT-UTILS:
+     - defang (dangerous URLs and other IOCs)
+     - refang (remove defanging)
+     - deburr (convert text to basic latin characters)
+     - shuffle lines (randomize line order)
+     - sum all (sums a list of numbers)
+     - count characters
+     - collapse lines
+     - remove duplicate lines
+     - sort lines
+     - trim
+     - natural sort lines (smart handling of numbers)
+     - reverse string
+     - lorem ipsum
+     - markdown quote (add > to line starts)
+     - replace smart quotes (with their simpler values)
 
 ## TODO
  - CONVERSIONS:
@@ -62,21 +78,4 @@ who either prefer working from the command line, or have too much data for Boop 
      - hex to rgb
      - fish PATH hex converter (espcapes terminal characters)
      - php unserialize (convert php serialized data to json) 
- - TEXT-UTILS:
-     - defang (dangerous URLs and other IOCs)
-     - refang (remove defanging)
-     - deburr (convert text to basic latin characters)
-     - shuffle lines (randomize line order)
-     - sum all (sums a list of numbers)
-     - count characters
-     - collapse lines
-     - remove duplicate lines
-     - sort lines
-     - trim
-     - natural sort lines (smart handling of numbers)
-     - reverse string
-     - lorem ipsum
-     - markdown quote (add > to line starts)
-     - replace smart quotes (with their simpler values)
-     - eval javascript 
 
