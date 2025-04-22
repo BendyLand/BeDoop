@@ -6,21 +6,8 @@ use sha2::Sha512;
 use percent_encoding::{utf8_percent_encode, percent_decode_str, AsciiSet, NON_ALPHANUMERIC, CONTROLS};
 
 pub enum EncodingOp {
-    Rot13,
-    Base64Encode,
-    Base64Decode,
-    Md5,
-    Sha1,
-    Sha256,
-    Sha512,
-    HtmlEncode,
-    HtmlDecode,
-    HtmlEncodeAll,
-    UrlEncode,
-    UrlDecode,
-    UrlEntityEncode,
-    UrlEntitiesDecode,
-    Unknown,
+    Rot13, Base64Encode, Base64Decode, Md5, Sha1, Sha256, Sha512, HtmlEncode, HtmlDecode,
+    HtmlEncodeAll, UrlEncode, UrlDecode, UrlEntityEncode, UrlEntitiesDecode, Unknown,
 }
 
 fn str_to_encoding_op(arg: &str) -> EncodingOp {

@@ -6,17 +6,8 @@ use quick_xml::events::Event;
 use quick_xml::Reader;
 
 pub enum FormatOp {
-    AddSlashes,
-    RemoveSlashes,
-    FormatJson,
-    FormatSql,
-    FormatCss,
-    FormatXml,
-    MinifyJson,
-    MinifySql,
-    MinifyCss,
-    MinifyXml,
-    Unknown,
+    AddSlashes, RemoveSlashes, FormatJson, FormatSql, FormatCss,
+    FormatXml, MinifyJson, MinifySql, MinifyCss, MinifyXml, Unknown,
 }
 
 fn str_to_format_op(arg: &str) -> FormatOp {

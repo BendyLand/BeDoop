@@ -3,25 +3,12 @@ use regex::Regex;
 use itertools::Itertools;
 
 pub enum TextUtilOp {
-    Defang,
-    Refang,
-    Deburr,
-    ShuffleLines,
-    SumAll,
-    CountChars,
-    CollapseLines,
-    DedupLines,
-    SortLines,
-    Trim,
-    NaturalSortLines,
-    ReverseString,
-    LoremIpsum,
-    MdQuote,
-    ReplaceSmartQuotes,
+    Defang, Refang, Deburr, ShuffleLines, SumAll, CountChars, CollapseLines, DedupLines,
+    SortLines, Trim, NaturalSortLines, ReverseString, LoremIpsum, MdQuote, ReplaceSmartQuotes,
     Unknown,
 }
 
-fn str_to_encoding_op(arg: &str) -> TextUtilOp {
+fn str_to_text_util_op(arg: &str) -> TextUtilOp {
     return match arg {
         "defang" => TextUtilOp::Defang,
         "refang" => TextUtilOp::Refang,
@@ -46,7 +33,7 @@ pub fn select_text_util_option(args: &Vec<String>) -> TextUtilOp {
     let text_util_options: Vec<String> = vec!["defang", "refang", "deburr", "shuffle", "sum", "count", "collapse", "dedup", "sort", "trim", "natural_sort", "reverse", "lorem_ipsum", "md_quote", "replace_smart_quotes"].into_iter().map(|x| x.to_string()).collect();
     for arg in args {
         if text_util_options.contains(&arg.to_lowercase()) {
-            return str_to_encoding_op(arg);
+            return str_to_text_util_op(arg);
         }
     }
     return TextUtilOp::Unknown
