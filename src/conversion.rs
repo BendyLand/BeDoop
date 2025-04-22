@@ -31,7 +31,7 @@ fn str_to_conversion_op(arg: &str) -> ConversionOp {
 }
 
 pub fn select_conversion_option(args: &Vec<String>) -> ConversionOp {
-    let conversion_options: Vec<String> = vec!["ascii_to_hex", "hex_to_ascii", "yaml_to_json", "json_to_yaml", "date_to_timestamp", "date_to_utc", "binary_to_decimal", "decimal_to_binary", "json_to_query_string", "query_strong_to_json", "decinal_to_hex", "hex_to_decimal", "json_to_csv", "csv_to_json", "hex_to_rgb", "fish_path_hex_conv"].into_iter().map(|x| x.to_string()).collect();
+    let conversion_options: Vec<String> = vec!["ascii_to_hex", "hex_to_ascii", "yaml_to_json", "json_to_yaml", "date_to_timestamp", "date_to_utc", "binary_to_decimal", "decimal_to_binary", "json_to_query_string", "query_strong_to_json", "decimal_to_hex", "hex_to_decimal", "json_to_csv", "csv_to_json", "hex_to_rgb", "fish_path_hex_conv"].into_iter().map(|x| x.to_string()).collect();
     for arg in args {
         if conversion_options.contains(&arg.to_lowercase()) {
             return str_to_conversion_op(arg);
