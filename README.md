@@ -29,6 +29,17 @@ who either prefer working from the command line, or have too much data for Boop 
      - sha1 hash
      - sha256 hash
      - sha512 hash 
+ - FORMAT:
+     - add slashes
+     - remove slashes
+     - format json
+     - format sql
+     - format css
+     - format xml
+     - minify css
+     - minify json
+     - minify xml
+     - minify sql 
 
 ## TODO
  - CONVERSIONS:
@@ -51,17 +62,6 @@ who either prefer working from the command line, or have too much data for Boop 
      - hex to rgb
      - fish PATH hex converter (espcapes terminal characters)
      - php unserialize (convert php serialized data to json) 
- - FORMAT:
-     - add slashes
-     - remove slashes
-     - format json
-     - format sql
-     - format css
-     - format xml
-     - minify css
-     - minify json
-     - minify xml
-     - minify sql 
  - TEXT-UTILS:
      - defang (dangerous URLs and other IOCs)
      - refang (remove defanging)
