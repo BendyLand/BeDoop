@@ -30,21 +30,27 @@ fn main() {
     }
     else { text = utils::get_file_contents(&args); }
     let command_family = utils::get_command_family(&args);
+    let result: String;
     match command_family {
         utils::CommandFamily::Casing => {
             let case_op = casing::select_case_option(&args);
-            let result = casing::handle_case_operation(&text, case_op);
-            let path = utils::find_file_path(&args);
-            handle_result(&result, path);
+            result = casing::handle_case_operation(&text, case_op);
         },
         utils::CommandFamily::Encoding => {
             let encoding_op = encoding::select_encoding_option(&args);
-            let result = encoding::handle_encoding_operation(&text, encoding_op);
-            let path = utils::find_file_path(&args);
-            handle_result(&result, path);
+            result = encoding::handle_encoding_operation(&text, encoding_op);
         },
-        _ => println!("Operation not implemented yet.")
+        utils::CommandFamily::Format => {
+            let format_op = format::select_format_option(&args);
+            result = format::handle_format_operation(&text, format_op);
+        }
+        _ => {
+            eprintln!("Operation not implemented yet.");
+            return;
+        },
     }
+    let path = utils::find_file_path(&args);
+    handle_result(&result, path);
 }
 
 fn handle_result(result: &String, path: Option<String>) {
