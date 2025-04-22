@@ -1,4 +1,4 @@
-# Bedoop
+# BeDoop
 
 This project was inspired by the MacOs app 'Boop', which is a GUI text utility tool. 
 
