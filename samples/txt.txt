@@ -1,0 +1,4 @@
+This_is_a test file to use to check the simple text 
+transformations on. I don't want to use the data or the 
+makefile since their formats aren't very nice to check
+these operations on.

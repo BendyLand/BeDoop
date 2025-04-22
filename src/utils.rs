@@ -4,6 +4,7 @@ pub enum CommandFamily {
     Casing,
     Encoding,
     Format,
+    TextUtils,
     Unknown,
 }
 
@@ -69,6 +70,7 @@ pub fn get_command_family(args: &Vec<String>) -> CommandFamily {
     let casing_options: Vec<String> = vec!["upper", "lower", "title", "sponge", "snake", "camel", "kebab"].into_iter().map(|x| x.to_string()).collect();
     let encoding_options: Vec<String> = vec!["rot13", "base64_encode", "base64_decode", "md5", "html_encode", "html_decode", "html_encode_all", "url_encode", "url_decode", "url_entity_encode", "url_entities_decode", "sha1", "sha256", "sha512"].into_iter().map(|x| x.to_string()).collect();
     let format_options: Vec<String> = vec!["add_slashes", "remove_slashes", "format_json", "format_sql", "format_css", "format_xml", "minify_json", "minify_sql", "minify_css", "minify_xml"].into_iter().map(|x| x.to_string()).collect();
+    let text_util_options: Vec<String> = vec!["defang", "refang", "deburr", "shuffle", "sum", "count", "collapse", "dedup", "sort", "trim", "natural_sort", "reverse", "lorem_ipsum", "md_quote", "replace_smart_quotes"].into_iter().map(|x| x.to_string()).collect();
     for arg in args {
         if casing_options.contains(&arg.to_lowercase()) {
             return CommandFamily::Casing;
@@ -78,6 +80,9 @@ pub fn get_command_family(args: &Vec<String>) -> CommandFamily {
         }
         else if format_options.contains(&arg.to_lowercase()) {
             return CommandFamily::Format;
+        }
+        else if text_util_options.contains(&arg.to_lowercase()) {
+            return CommandFamily::TextUtils;
         }
     }
     return CommandFamily::Unknown;

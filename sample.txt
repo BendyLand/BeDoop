@@ -1,4 +1,0 @@
-tHIs_is_A TEST file TO Use To CHECk the simPLe TexT
-TRAnsFOrmaTIons On. I doN'T wAnT TO USE THe dATa oR thE
-MaKefiLe sinCe ThEIR foRMatS areN't very NiCE To CHeCK
-These OperaTionS On.

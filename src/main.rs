@@ -43,7 +43,11 @@ fn main() {
         utils::CommandFamily::Format => {
             let format_op = format::select_format_option(&args);
             result = format::handle_format_operation(&text, format_op);
-        }
+        },
+        utils::CommandFamily::TextUtils => {
+            let format_op = text_utils::select_text_util_option(&args);
+            result = text_utils::handle_text_util_operation(&text, format_op);
+        },
         _ => {
             eprintln!("Operation not implemented yet.");
             return;

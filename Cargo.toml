@@ -6,6 +6,8 @@ edition = "2024"
 [dependencies]
 base64 = "0.22.1"
 case = "1.0.0"
+deunicode = "1.6.1"
+itertools = "0.14.0"
 lightningcss = "1.0.0-alpha.65"
 md5 = "0.7.0"
 percent-encoding = "2.3.1"
