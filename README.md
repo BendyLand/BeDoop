@@ -72,5 +72,5 @@ who either prefer working from the command line, or have too much data for Boop 
      - json to csv
      - csv to json
      - hex to rgb
-     - fish PATH hex converter (espcapes terminal characters)
+     - fish PATH hex converter (escapes terminal characters)
 
