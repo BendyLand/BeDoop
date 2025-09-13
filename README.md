@@ -5,7 +5,7 @@ This project was inspired by the MacOs app 'Boop', which is a GUI text utility t
 While Boop can handle most needs by most users, this version is aimed at power users, 
 who either prefer working from the command line, or have too much data for Boop to comfortably handle.
 
-## DONE
+## Supported Operations
  - CASING:
      - title case (Example)
      - upper case (EXAMPLE)
